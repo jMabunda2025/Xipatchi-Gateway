@@ -4,7 +4,7 @@ require_once __DIR__ . '/XipatchiClient.php';
 use Xipatchi\XipatchiClient;
 
 $token = "YOU_TOQUEN";
-$client = new XipatchiClient("URL_BASE", $token);
+$client = new XipatchiClient("https://api.xipatchi.com", "SEU_TOKEN");
 
 $dados = [
     "cliente_id" => 2,
@@ -19,5 +19,6 @@ $resultado = $client->processarPagamento($dados);
 
 header('Content-Type: application/json');
 echo json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
 
 
