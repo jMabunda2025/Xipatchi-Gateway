@@ -96,6 +96,3 @@ use Xipatchi\XipatchiClient;
 ## 📜 Licença
 MIT – livre para usar e contribuir.
 ```
-
-
-Queres que eu prepare também um **exemplo rápido em cURL** para quem quiser testar os endpoints sem precisar de PHP?
