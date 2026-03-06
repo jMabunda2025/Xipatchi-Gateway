@@ -1,4 +1,5 @@
 
+
 # Xipatchi Gateway
 
 O **Xipatchi Gateway** permite que desenvolvedores processem pagamentos em Moçambique de forma simples e segura.  
@@ -17,7 +18,8 @@ Authorization: Bearer SEU_TOKEN
 ## 📡 Endpoints
 
 ### Registrar Desenvolvedor
-Para obter o SEU_TOKEN registe-se na plataforma do xipatchi e la sera gerado o token. Bas copia-lo para usar na integracao
+Para obter o SEU_TOKEN registe-se na plataforma do Xipatchi.  
+O token será gerado e deve ser usado na integração.
 
 ### Processar Pagamento
 ```http
@@ -44,8 +46,6 @@ Resposta:
 }
 ```
 
-
-
 ---
 
 ## 📂 Exemplo de Integração em PHP
@@ -70,10 +70,32 @@ print_r($resposta);
 
 ---
 
-## 📜 Licença
-MIT – livre para usar e contribuir.
+## ⚙️ Instalação
+
+### Clonar repositório
+```bash
+git clone https://github.com/jMabunda2025/Xipatchi-Gateway.git
+cd Xipatchi-Gateway
+```
+
+### Instalar via Composer
+No seu projeto PHP:
+```bash
+composer require jMabunda2025/xipatchi-gateway
+```
+
+Depois basta importar:
+```php
+require 'vendor/autoload.php';
+
+use Xipatchi\XipatchiClient;
 ```
 
 ---
 
-👉 Este README é direto ao ponto: mostra **como autenticar**, **quais endpoints usar** e **um exemplo de integração em PHP**.
+## 📜 Licença
+MIT – livre para usar e contribuir.
+```
+
+
+Queres que eu prepare também um **exemplo rápido em cURL** para quem quiser testar os endpoints sem precisar de PHP?
