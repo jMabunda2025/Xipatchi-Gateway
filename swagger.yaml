@@ -1,0 +1,101 @@
+
+---
+
+## 📄 swagger.yaml (modelo OpenAPI 3.0)
+
+# ```yaml
+openapi: 3.0.0
+info:
+  title: Xipatchi Gateway API
+  version: 1.0.0
+  description: API para integração de pagamentos via Xipatchi Gateway
+servers:
+  - url: https://api.xipatchi.com
+paths:
+  /payment/processarPagamento:
+    post:
+      summary: Processar pagamento
+      description: Envia dados de pagamento para o gateway
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                item_id:
+                  type: integer
+                metodo:
+                  type: string
+                  example: mpesa
+                mpesa:
+                  type: string
+                  description: Número M-Pesa
+                amount:
+                  type: number
+                  format: float
+              required:
+                - cliente_id
+                - item_id
+                - metodo
+                - amount
+      responses:
+        '200':
+          description: Resposta do pagamento
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      cliente_id:
+                        type: string
+                      item_id:
+                        type: string
+                      transaction:
+                        type: string
+                      reference:
+                        type: string
+  /developer/register:
+    post:
+      summary: Registrar desenvolvedor
+      description: Cria um novo dev e retorna token
+      responses:
+        '200':
+          description: Token gerado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /developer/validate:
+    post:
+      summary: Validar token
+      description: Verifica se o token é válido
+      responses:
+        '200':
+          description: Resultado da validação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+securitySchemes:
+  bearerAuth:
+    type: http
+    scheme: bearer
+    bearerFormat: JWT
