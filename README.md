@@ -1,73 +1,79 @@
-# Xipatchi Gateway - Integração de Pagamentos
 
-O **Xipatchi Gateway** é um serviço de API para processar pagamentos via M-Pesa e outros métodos.  
-Este pacote fornece um cliente PHP simples e exemplos de integração.
+# Xipatchi Gateway
+
+O **Xipatchi Gateway** permite que desenvolvedores processem pagamentos em Moçambique de forma simples e segura.  
+Você só precisa integrar os arquivos fornecidos e consumir os endpoints com seu **token de acesso**.
 
 ---
 
-## 🚀 Como começar
+## 🔑 Autenticação
+Todos os pedidos exigem **Bearer Token**:
+```http
+Authorization: Bearer SEU_TOKEN
+```
 
-1. **Obtenha o seu token de desenvolvedor**  
-   - Registre-se no gateway (`/developer/register`).  
-   - Guarde o token gerado para autenticação.
+---
 
-2. **Inclua o cliente PHP**  
-   - Copie `XipatchiClient.php` para o seu projeto.  
-   - Instancie com a URL base e o token:
+## 📡 Endpoints
 
-   ```php
-   require_once 'XipatchiClient.php';
-   use Xipatchi\XipatchiClient;
+### Registrar Desenvolvedor
+Para obter o SEU_TOKEN registe-se na plataforma do xipatchi e la sera gerado o token. Bas copia-lo para usar na integracao
 
-   $client = new XipatchiClient("https://api.xipatchi.com", "SEU_TOKEN");
+### Processar Pagamento
+```http
+POST /payment/processarPagamento
+```
+Body:
+```json
+{
+  "developer_id": 1,
+  "cliente_id": 10,
+  "item_id": 5,
+  "valor": 1000,
+  "telefone": "25884xxxxxxx",
+  "metodo": "mpesa"
+}
+```
 
-3. **Envie um pagamento**
-    ```php
-    $dados = [
-        "cliente_id" => 2,
-        "item_id"    => 1,
-        "metodo"     => "mpesa",
-        "mpesa"      => "84123456",
-        "amount"     => 50
-    ];
-
-    $resultado = $client->processarPagamento($dados);
-
-    header('Content-Type: application/json');
-    echo json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
-4. **Endpoints principais**
-  POST /payment/processarPagamento → Processa um pagamento.
-
-  POST /developer/register → Registra um novo desenvolvedor e gera token.
-
-  POST /developer/validate → Valida token de acesso.
-
-🔐 **Autenticação**
-  Todas as requisições devem incluir o cabeçalho:
-  
-  Authorization: Bearer SEU_TOKEN
-
-📦 **Resposta JSON**
-  Exemplo de resposta de sucesso:
-    {
-      "success": true,
-      "message": "✅ Pagamento confirmado pela M-Pesa.",
-      "data": {
-        "cliente_id": "2",
-        "item_id": "1",
-        "transaction": "cc2a41rjx1hl",
-        "reference": null
-      }
-    }
-
-  Exemplo de resposta de erro:
-    {
-      "success": false,
-      "message": "❌ Falha no pagamento.",
-      "data": {}
-    }
+Resposta:
+```json
+{
+  "status": "success",
+  "mensagem": "Pagamento processado com sucesso",
+  "transaction_id": "TX123456"
+}
+```
 
 
 
+---
 
+## 📂 Exemplo de Integração em PHP
+
+```php
+require 'XipatchiClient.php';
+
+$client = new XipatchiClient("SEU_TOKEN");
+
+// Processar pagamento
+$resposta = $client->processarPagamento([
+    "developer_id" => 1,
+    "cliente_id"   => 10,
+    "item_id"      => 5,
+    "valor"        => 1000,
+    "telefone"     => "25884xxxxxxx",
+    "metodo"       => "mpesa"
+]);
+
+print_r($resposta);
+```
+
+---
+
+## 📜 Licença
+MIT – livre para usar e contribuir.
+```
+
+---
+
+👉 Este README é direto ao ponto: mostra **como autenticar**, **quais endpoints usar** e **um exemplo de integração em PHP**.
