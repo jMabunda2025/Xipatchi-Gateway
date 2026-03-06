@@ -53,7 +53,7 @@ Resposta:
 ```php
 require 'XipatchiClient.php';
 
-$client = new XipatchiClient("SEU_TOKEN");
+$client = new XipatchiClient("https://api.xipatchi.com", "SEU_TOKEN");
 
 // Processar pagamento
 $resposta = $client->processarPagamento([
@@ -95,4 +95,3 @@ use Xipatchi\XipatchiClient;
 
 ## 📜 Licença
 MIT – livre para usar e contribuir.
-```
