@@ -19,3 +19,4 @@ $resultado = $client->processarPagamento($dados);
 
 header('Content-Type: application/json');
 echo json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
